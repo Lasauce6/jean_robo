@@ -1,0 +1,39 @@
+config:
+    connection:
+        Google API key: # YouTube v3 API Key
+        Discord bot token: # Discord bot token
+        Twitch app id: # Twitch app id
+        Twitch secret app id: # Twitch app secret
+    main:
+        Ping Every x Minutes: 5 # 5-15 minutes should be ok, anything lower not recommended, because the API traffic will be used up very quickly otherwise.
+    Discord Channel:
+        0:
+            channelID: # Discord channel ID
+            New video: # Message that appears when a YouTuber has uploaded a new video
+            Livestream: # Message that appears when a YouTuber or Streamer is livestreaming
+            Twitch: # Message that appears when a Streamer is livestreaming on Twitch
+            # My server content-sharing
+        1:
+            channelID: # Discord channel ID
+            New video: # Message that appears when a YouTuber has uploaded a new video
+            Livestream: # Message that appears when a YouTuber or Streamer is livestreaming
+            Twitch: #Message that appears when a Streamer is livestreaming on Twtitch
+            # Other server content-sharing
+    YouTubers:
+        0:
+            name: # Name that will be displayed in discord, mentions can be used with <@DiscordUserID>
+            channelID: # YouTube Channel ID
+            # Some name
+        1:
+            name: # Name that will be displayed in discord, mentions can be used with <@DiscordUserID>
+            channelID: # YouTube Channel ID
+            # Some other name
+    Streamers:
+        0:
+            name: # Streamer name that will be displayed in discord, mentions can be used with <@DiscordUserID>
+            channelID: # Streamer Channel ID (optional)
+            # Some name
+        1:
+            name: # Streamer name that will be displayed in discord, mentions can be used with <@DiscordUserID>
+            channelID: # Streamer Channel ID (optional)
+            # Some other name
