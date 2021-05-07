@@ -1,0 +1,6 @@
+discord.py
+pyyaml
+TwitchAPI
+youtube_dl
+PyNaCl
+youtube_dl
