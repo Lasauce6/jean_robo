@@ -1,6 +1,46 @@
+<h1 align="center">
+  <br>
+  <a href="https://github.com/Lasauce6/jean_robo/tree/master"><img src="https://media.discordapp.net/attachments/369542564321165322/834130549873967194/Jean_robo_PP.png?width=472&height=472" alt="Jean_robo - Discord Bot"></a>
+  <br>
+  Jean_robo
+  <br>
+</h1>
+
+<h4 align="center">A selfhosted YouTube and Twitch feed bot for Discord</h4>
+
+<p align="center">
+    <a href="https://discord.gg/MZXV97R">
+        <img src="https://discordapp.com/api/guilds/591632004408147987/widget.png?style=shield" alt="Discord Server">
+    </a>
+    <a href="https://www.python.org/downloads/">
+        <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/Red-Discordbot">
+    </a>
+    <a href="https://github.com/Rapptz/discord.py/">
+        <img src="https://img.shields.io/badge/discord-py-blue.svg" alt="discord.py">
+    </a>
+    <a href="https://github.com/Lasauce6/jean_robo/blob/master/LICENSE">
+        <img src="https://img.shields.io/badge/license-MIT-green">
+    </a>
+</p>
+
+<p align="center">
+    <a href="### Features">Features</a>
+    •
+    <a href="### Requirements">Requirements</a>
+    •
+    <a href="### Preparation">Preparation</a>
+    •
+    <a href="### Configuration">Configuration</a>
+    •
+    <a href="### Installation">Installation</a>
+    •
+    <a href="https://jean_robo.sytes.net">Site</a>
+    •
+    <a href="### Credits">Credits</a>
+</p>
+
 # Jean_robo
 
-A selfhosted YouTube and Twitch feed bot for Discord.
 I have borrowed some code from different GitHub pages which are credited at the end of the page
 
 ### Features
@@ -19,7 +59,7 @@ I have borrowed some code from different GitHub pages which are credited at the 
     - Easy yaml configuration file (config.yml)  
 
 ### Requirements
-- [Python 3.5](https://www.python.org/downloads/release/python-354/)
+- [Python 3.8](https://www.python.org/downloads/release/python-385/)
 - Microsoft Windows, **I do not have Linux and all the launchers are done in batch**
 (The bot *should in theory* still run just fine on Linux in a terminal, you would have to install the requirements manualy, though. I do **NOT** know if you need anything else for it to work, though.)
 - [Discord.py](https://github.com/Rapptz/discord.py)
