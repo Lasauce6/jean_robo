@@ -24,19 +24,19 @@
 </p>
 
 <p align="center">
-    <a href="### Features">Features</a>
+    <a href="#features">Features</a>
     •
-    <a href="### Requirements">Requirements</a>
+    <a href="#requirements">Requirements</a>
     •
-    <a href="### Preparation">Preparation</a>
+    <a href="#preparation">Preparation</a>
     •
-    <a href="### Configuration">Configuration</a>
+    <a href="#configuration">Configuration</a>
     •
-    <a href="### Installation">Installation</a>
+    <a href="#installation">Installation</a>
     •
     <a href="https://jean-robo.sytes.net">Site</a>
     •
-    <a href="### Credits">Credits</a>
+    <a href="#credits">Credits</a>
 </p>
 
 
