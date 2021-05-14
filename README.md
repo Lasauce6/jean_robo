@@ -34,7 +34,7 @@
     •
     <a href="### Installation">Installation</a>
     •
-    <a href="https://jean_robo.sytes.net">Site</a>
+    <a href="https://jean-robo.sytes.net">Site</a>
     •
     <a href="### Credits">Credits</a>
 </p>
