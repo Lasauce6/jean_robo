@@ -252,3 +252,4 @@ Run by running the main.py file in python.
 
 ### Credits
 - [Amethyst93 / Discord-YouTube-Notifier](https://github.com/Amethyst93/Discord-YouTube-Notifier)
+- [PapyrusThePlant / Panda](https://github.com/PapyrusThePlant/Panda)
