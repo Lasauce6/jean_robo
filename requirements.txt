@@ -1,8 +1,6 @@
 discord.py[voice]
 peony-twitter
 psutil
-pyyaml
 TwitchAPI
 youtube_dl
 PyNaCl
-youtube_dl
