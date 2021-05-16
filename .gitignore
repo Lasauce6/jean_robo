@@ -80,3 +80,8 @@ ENV/
 # macOS
 .DS_Store
 .vscode
+
+#youtube_dl files
+*.webm
+*.part
+*.m4a

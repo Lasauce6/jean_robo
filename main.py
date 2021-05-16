@@ -1,3 +1,5 @@
+import json
+import logging
 import discord
 import time
 import asyncio
@@ -8,27 +10,50 @@ from Implementation import *
 from config import Config
 
 
-config = Config('config.yml')
-client = commands.Bot(command_prefix='!')
+rlog = logging.getLogger()
+rlog.setLevel(logging.INFO)
+handler = logging.FileHandler('jean_robo.log', encoding='utf-8')
+handler.setFormatter(logging.Formatter('{asctime}:{levelname}:{name}:{message}', style='{'))
+rlog.addHandler(handler)
+
+logging.getLogger('discord').setLevel(logging.WARNING)
+
+config = Config('conf/config.json')
+
+class jean_robo(commands.Bot):
+    def __init__(self):
+        self.conf_file = 'conf/config.json'
+        with open(self.conf_file) as fp:
+            self.conf = json.load(fp)
+
+        super().__init__(commands.when_mentioned_or(self.conf['prefix']), description='Jean_robo le beau robo')
+
+        for cog_name in self.conf['extensions']:
+            self.load_extension(f'cogs.{cog_name}')
+
+client = jean_robo()
+
+
 youtubers = config.getYouTubersList() if (config.getYouTubersNr() != 0) else sys.exit()
 streamers = config.getStreamerList() if (config.getStreamerNr() !=0) else sys.exit()
-if (config.getDiscordChannelNr() == 0): sys.exit()
 id = ''
 GOOGLE_API = config.getConnectionData()[0]
-TWITCH_APP_ID = config.getConnectionData()[2]
-TWITCH_APP_SECRET = config.getConnectionData()[3]
+TWITCH_APP_ID = config.getConnectionData()[1]
+TWITCH_APP_SECRET = config.getConnectionData()[2]
 pingEveryXMinutes = config.getPingTime()
 threads = []
 processes = []
 tthreads = []
 tprocesses = []
 
+
 i = 0
 while i < config.getYouTubersNr():
     temp_list = []
-    temp_list.append(config.getYouTubersList()[i]['name'])
-    temp_list.append(id) if not config.getYouTubersList()[i]['channelID'] else temp_list.append(config.getYouTubersList()[i]['channelID'])
+    temp_list.append(config.getYouTubersList()[str(i)]['name']) # Name
+    temp_list.append(id) if not config.getYouTubersList()[str(i)]['channelID'] else temp_list.append(config.getYouTubersList()[str(i)]['channelID'])
     temp_list.append(True) if not id else temp_list.append(False)
+    temp_list.append(config.getYouTubersList()[str(i)])
     temp_list.append('')
     threads.append(temp_list)
     i += 1
@@ -41,9 +66,10 @@ i = 0
 
 while i < config.getStreamerNr():
     temp_list = []
-    temp_list.append(config.getStreamerList()[i]['name'])
-    temp_list.append(id) if not config.getStreamerList()[i]['channelID'] else temp_list.append(config.getStreamerList()[i]['channelID'])
+    temp_list.append(config.getStreamerList()[str(i)]['name'])
+    temp_list.append(id) if not config.getStreamerList()[str(i)]['channelID'] else temp_list.append(config.getStreamerList()[str(i)]['channelID'])
     temp_list.append(True) if not id else temp_list.append(False)
+    temp_list.append(config.getStreamerList()[str(i)])
     temp_list.append('')
     tthreads.append(temp_list)
     i += 1
@@ -63,20 +89,21 @@ async def youtube():
         if processes[item].isNewVideo():
             # print('{} UPLOADED A NEW VIDEO! PUSHING UPDATE ON DISCORD.'.format(threads[item][0]))
             sys.stdout.write('{} UPLOADED A NEW VIDEO! PUSHING UPDATE ON DISCORD.'.format(threads[item][0]) + '\n')
-            for x in range(0, config.getDiscordChannelNr()):
-                newvideo = config.getDiscordChannelList()[x]['New video'].format(threads[item][0]) + '\n{}'.format(processes[item].getVideoLink(processes[item].videosData[0][1]))
-                channel = client.get_channel(config.getDiscordChannelList()[x]['channelID'])
+            for x in range(0, config.getYoutuberDiscordChannelNr(threads[item][3])):
+                newvideo = config.getYoutuberDiscordChannelList(threads[item][3])[str(x)]['New video'].format(threads[item][0]) + '\n{}'.format(processes[item].getVideoLink(processes[item].videosData[0][1]))
+                channel = client.get_channel(config.getYoutuberDiscordChannelList(threads[item][3])[str(x)]['channelID'])
                 await channel.send(newvideo)
-        '''
+
         if processes[item].isUserLive():
-            if not processes[item].liveId == threads[item][3]:
-                print('{} IS STREAMING ON YOUTUBE NOW! PUSHING UPDATE ON DISCORD.'.format(threads[item][0]))
-                threads[item][3] = processes[item].liveId
-                for x in range(0, config.getDiscordChannelNr()):
-                    livestream = config.getDiscordChannelList()[x]['Livestream'].format(threads[item][0]) + '\n{}'.format(processes[item].getVideoLink(processes[item].getUserLiveData()))
-                    channel = client.get_channel(config.getDiscordChannelList()[x]['channelID'])
+            if not processes[item].liveId == threads[item][4]:
+                # print('{} IS STREAMING ON YOUTUBE NOW! PUSHING UPDATE ON DISCORD.'.format(threads[item][0]))
+                sys.stdout.write('{} IS STREAMING ON YOUTUBE NOW! PUSHING UPDATE ON DISCORD.'.format(threads[item][0]) + '\n')
+                threads[item][4] = processes[item].liveId
+                for x in range(0, config.getYoutuberDiscordChannelNr(threads[item][3])):
+                    livestream = config.getYoutuberDiscordChannelList(threads[item][3])[str(x)]['Livestream'].format(threads[item][0]) + '\n{}'.format(processes[item].getVideoLink(processes[item].getUserLiveData()))
+                    channel = client.get_channel(config.getYoutuberDiscordChannelList(threads[item][3])[str(x)]['channelID'])
                     await channel.send(livestream)
-        '''
+
         item += 1
 
 async def twitch():
@@ -90,7 +117,7 @@ async def twitch():
             # print('{} IS LIVE, PUSHING INFO ON DISCORD !'.format(tthreads[count][0]))
             sys.stdout.write('{} IS LIVE, PUSHING INFO ON DISCORD !'.format(tthreads[count][0]) + '\n')
             for x in range(0, config.getDiscordChannelNr()):
-                livestream = config.getDiscordChannelList()[x]['Twitch'].format(tthreads[count][0]) + '\n{}'.format(tprocesses[count].getStreamLink())
+                livestream = config.getStreamerDiscordChannelList(tthreads[count][3])[str(x)]['Twitch'].format(tthreads[count][0]) + '\n{}'.format(tprocesses[count].getStreamLink())
                 embed = discord.Embed(title=tprocesses[count].getTitle(), colour=discord.Colour(0x9013fe), url=tprocesses[count].getStreamLink())
 
                 embed.set_image(url=tprocesses[count].getThumbnail())
@@ -99,7 +126,7 @@ async def twitch():
 
                 embed.add_field(name='Game', value=tprocesses[count].getGame())
                 embed.add_field(name='Viewers', value=tprocesses[count].getViewers())
-                channel = client.get_channel(config.getDiscordChannelList()[x]['channelID'])
+                channel = client.get_channel(config.getStreamerDiscordChannelList(tthreads[count][3])[str(x)]['channelID'])
                 await channel.send(content=livestream, embed=embed)
         elif tprocesses[count].isStreaming() and tprocesses[count].lockStatus():
             # print('Still Streaming !')
@@ -139,5 +166,6 @@ async def on_ready():
     client.loop.create_task(update())
 
 
+client.run(client.conf['token'])
 
-client.run(config.getConnectionData()[1])
+

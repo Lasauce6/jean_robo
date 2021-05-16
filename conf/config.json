@@ -1,0 +1,49 @@
+{
+  "prefix": "YOUR PREFIX",
+  "token": "YOUR TOKEN HERE",
+  "extensions": ["core", "music"],
+  "config": {
+    "connection": {
+      "Google API key": "YOUR GOOGLE API KEY",
+      "Twitch app id": "YOUR TWITCH APP ID",
+      "Twitch secret app id": "YOUR TWITCH SECRET APP ID"
+    },
+    "main": {
+      "Ping Every x Minutes": 10
+    },
+    "YouTubers": {
+      "0": {
+        "name": "NAME OF THE FIRST YOUTUBER",
+        "channelID": "YOUTUBER CHANNEL ID",
+        "Discord Channel": {
+          "0": {
+            "channelID": CHANNEL ID,
+            "New video": "DISCORD MESSAGE TO PUSH WHEN THERE IS A NEW VIDEO",
+            "Livestream": "DISCORD MESSAGE TO PUSH WHEN HE IS LIVESTREAMING"
+          },
+          "1": {
+            "channelID": ANOTHER CHANNEL ID,
+            "New video": "DISCORD MESSAGE TO PUSH WHEN THERE IS A NEW VIDEO",
+            "Livestream": "DISCORD MESSAGE TO PUSH WHEN HE IS LIVESTREAMING"
+          }
+        }
+      }
+    },
+    "Streamers": {
+      "0": {
+        "name": "STREAMER NAME",
+        "channelID": STREAMER CHANNEL ID,
+        "Discord Channel": {
+          "0": {
+            "channelID": CHANNEL ID,
+            "Twitch": "DISCORD MESSAGE TO PUSH WHEN HE IS LIVESTREAMING"
+          },
+          "1": {
+            "channelID": ANOTHER CHANNEL ID,
+            "Twitch": "DISCORD MESSAGE TO PUSH WHEN HE IS LIVESTREAMING"
+          }
+        }
+      }
+    }
+  }
+}
