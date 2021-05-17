@@ -20,11 +20,8 @@ def get(iterable, **attrs):
             return elem
     return None
 
-
-class Config:
-    """The config object, created from a json file."""
-
-    def __init__(self, file, **options):
+class globalConfig:
+    def __init__(self, file):
 
         global cfg
 
@@ -56,15 +53,6 @@ class Config:
         if self.getStreamerNr() == 0:
             input('ERROR: No Streamers found in config file list or missing information!')
             sys.exit()
-
-        super().__setattr__('_data', {})
-        self.file = file
-        self.encoding = options.pop('encoding', None)
-        self.object_hook = options.pop('object_hook', _ConfigDecoder().decode)
-        self.encoder = options.pop('encoder', _ConfigEncoder)
-
-        with open(self.file, 'r', encoding=self.encoding) as fp:
-            self._data = json.load(fp, object_pairs_hook=self.object_hook)
 
     def getConnectionData(self):
         return [cfg['config']['connection']['Google API key'],
@@ -107,6 +95,22 @@ class Config:
         if not cfg['config']['Streamers']:
             return 0
         return len(cfg['config']['Streamers'])
+
+
+class Config:
+    """The config object, created from a json file."""
+
+    def __init__(self, file, **options):
+
+        super().__setattr__('_data', {})
+        self.file = file
+        self.encoding = options.pop('encoding', None)
+        self.object_hook = options.pop('object_hook', _ConfigDecoder().decode)
+        self.encoder = options.pop('encoder', _ConfigEncoder)
+
+        with open(self.file, 'r', encoding=self.encoding) as fp:
+            self._data = json.load(fp, object_pairs_hook=self.object_hook)
+
 
     def save(self):
         """Saves the config on disk."""
