@@ -189,7 +189,6 @@ class Playlist(asyncio.Queue):
         """Adds an item to the playlist."""
         self.put_nowait(song)
 
-    # TODO : transformer tout ça en embed pck la c'est tout moche
     def __str__(self):
         info = 'Voici votre catalogue :\n'
         info_len = len(info)
