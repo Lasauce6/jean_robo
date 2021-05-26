@@ -3,6 +3,7 @@ import functools
 import logging
 import os
 import pathlib
+import sys
 
 import discord
 import discord.ext.commands as commands
@@ -77,6 +78,13 @@ class SongInfo:
         self.filename = info.get('_filename', self.ytdl.prepare_filename(self.info))
         self.downloaded = asyncio.Event()
         self.local_file = '_filename' in info
+
+    def getName(self):
+        title = f"**{self.info['title']}**"
+        creator = f"**{self.info.get('creator') or self.info['uploader']}**"
+        duration = f" (Durée: {duration_to_str(self.info['duration'])})" if 'duration' in self.info else ''
+        return f'{title} de {creator}{duration}'
+
 
     @classmethod
     async def create(cls, query, requester, channel, loop=None):
@@ -181,6 +189,7 @@ class Playlist(asyncio.Queue):
         """Adds an item to the playlist."""
         self.put_nowait(song)
 
+    # TODO : transformer tout ça en embed pck la c'est tout moche
     def __str__(self):
         info = 'Voici votre catalogue :\n'
         info_len = len(info)
@@ -188,7 +197,7 @@ class Playlist(asyncio.Queue):
         # info += test
 
         for song in self:
-            song_repr = f'{song}\n'
+            song_repr = f'{song.getName()}\n'
             song_repr_len = len(song_repr)
 
             if info_len + song_repr_len > 1995:
@@ -211,6 +220,7 @@ class GuildMusicState:
         self.player_volume = 0.5
         self.skips = set()
         self.min_skips = 5
+        self.repeat = False
 
     @property
     def current_song(self):
@@ -258,9 +268,9 @@ class GuildMusicState:
             await next_song_info.channel.send(f"C'est parti pour {source} !")
 
 
+
 class Music(commands.Cog):
     """🎵🐼"""
-
     def __init__(self, bot):
         self.bot = bot
         # self.bot.remove_command('help')
@@ -306,7 +316,7 @@ class Music(commands.Cog):
         await ctx.send(f'{ctx.music_state.playlist}')
 
     @commands.command(pass_context=True, aliases=['summon'])
-    @commands.has_permissions(manage_guild=True)
+    # @commands.has_permissions(manage_guild=True)
     async def join(self, ctx, *, channel: discord.VoiceChannel = None):
         """Summons the bot to a voice channel.
 
@@ -351,7 +361,7 @@ class Music(commands.Cog):
         else:
             # Schedule the song's download
             ctx.bot.loop.create_task(song.download(ctx.bot.loop))
-            await ctx.send(f"J'ai mis en attente {song} elle est à la position **#{ctx.music_state.playlist.qsize()}**")
+            await ctx.send(f"J'ai mis en attente {song.getName()} elle est à la position **#{ctx.music_state.playlist.qsize()}**")
 
         await ctx.message.remove_reaction('\N{HOURGLASS}', ctx.me)
         await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
@@ -363,21 +373,21 @@ class Music(commands.Cog):
         await ctx.message.add_reaction('\N{CROSS MARK}')
 
     @commands.command(pass_context=True, aliases=['ps'])
-    @commands.has_permissions(manage_guild=True)
+    # @commands.has_any_role(self.bot.musicRole(ctx.guild.id))
     async def pause(self, ctx):
         """Pauses the player."""
         if ctx.voice_client:
             ctx.voice_client.pause()
 
     @commands.command(pass_context=True, aliases=['continue'])
-    @commands.has_permissions(manage_guild=True)
+    # @commands.has_any_role(self.bot.musicRole(ctx.guild.id))
     async def resume(self, ctx):
         """Resumes the player."""
         if ctx.voice_client:
             ctx.voice_client.resume()
 
     @commands.command(pass_context=True, aliases=['disconnect'])
-    @commands.has_permissions(manage_guild=True)
+    # @commands.has_any_role(self.bot.musicRole(ctx.guild.id))
     async def leave(self, ctx):
         """Stops the player, clears the playlist and leaves the voice channel."""
         await ctx.music_state.stop()
@@ -386,7 +396,7 @@ class Music(commands.Cog):
     async def volume(self, ctx, volume: int = None):
         """Sets the volume of the player, scales from 0 to 100."""
         if volume < 0 or volume > 100:
-            raise MusicError("Le volume c'est entre 0 et 100 pas 1000 !")
+            raise MusicError("Le volume c'est entre 0 et 100 pas", volume, " !")
         ctx.music_state.volume = volume / 100
 
     @commands.command(pass_context=True)
@@ -416,7 +426,7 @@ class Music(commands.Cog):
             ctx.voice_client.stop()
 
     @commands.command(pass_context=True)
-    @commands.has_permissions(manage_guild=True)
+    # @commands.has_any_role(self.bot.musicRole(ctx.guild.id))
     async def minskips(self, ctx, number: int):
         """Sets the minimum number of votes to skip a song.
 

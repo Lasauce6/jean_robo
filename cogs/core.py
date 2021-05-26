@@ -29,7 +29,7 @@ def duration_to_str(duration):
 
 
 class Core(commands.Cog):
-    """♡"""
+    """<3"""
     def __init__(self, bot):
         self.bot = bot
         self.bot.remove_command('help')
@@ -123,14 +123,14 @@ class Core(commands.Cog):
         embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/369542564321165322/834130549873967194/Jean_robo_PP.png")
         embed.set_author(name="Jean_robo vous fait la musique !")
 
-        embed.add_field(name="0. Info", value=f'Je vous donne moult informations sur ma personne !\nUsage : `{self.bot.conf["prefix"]}info`', inline=False)
-        embed.add_field(name="1. Join/Summon", value=f'Je rejoins le channel dans lequel vous vous situez messire !\nUsage: `{self.bot.conf["prefix"]}join` ou `{self.bot.conf["prefix"]}summon`', inline=False)
-        embed.add_field(name="2. Leave/Disconnect", value=f'Je m\'en vais prenant mes caleçons sales !\nUsage: `{self.bot.conf["prefix"]}leave` ou `{self.bot.conf["prefix"]}disconnect`', inline=False)
-        embed.add_field(name="3. Play", value=f'Je joue la musique demandée tel le ménestrel !\nJe peux lire aussi bien les url que les mots\nUsage: `{self.bot.conf["prefix"]}play <songname/url>` ou `{self.bot.conf["prefix"]}p <songname/url>`', inline=False)
-        embed.add_field(name="4. Now Playing", value=f'Je donne moult informations sur la chanson que je joue !\nUsage: `{self.bot.conf["prefix"]}nowplaying` ou `{self.bot.conf["prefix"]}np`', inline=False)
-        embed.add_field(name="5. Pause", value=f'Je pause et fait des pauses\nUsage: `{self.bot.conf["prefix"]}pause` ou `{self.bot.conf["prefix"]}ps`', inline=False)
-        embed.add_field(name="6. Resume", value=f'Je repart de plus belle !\nUsage: `{self.bot.conf["prefix"]}resume` ou `{self.bot.conf["prefix"]}continue`', inline=False)
-        embed.add_field(name="7. Repeat", value=f'Votre musique va tourner en boucle !\nUsage: `{self.bot.conf["prefix"]}repeat` ou `{self.bot.conf["prefix"]}r`', inline=False)
+        embed.add_field(name="1. Info", value=f'Je vous donne moult informations sur ma personne !\nUsage : `{self.bot.conf["prefix"]}info`', inline=False)
+        embed.add_field(name="2. Join/Summon", value=f'Je rejoins le channel dans lequel vous vous situez messire !\nUsage: `{self.bot.conf["prefix"]}join` ou `{self.bot.conf["prefix"]}summon`', inline=False)
+        embed.add_field(name="3. Leave/Disconnect", value=f'Je m\'en vais prenant mes caleçons sales !\nUsage: `{self.bot.conf["prefix"]}leave` ou `{self.bot.conf["prefix"]}disconnect`', inline=False)
+        embed.add_field(name="4. Play", value=f'Je joue la musique demandée tel le ménestrel !\nJe peux lire aussi bien les url que les mots\nUsage: `{self.bot.conf["prefix"]}play <songname/url>` ou `{self.bot.conf["prefix"]}p <songname/url>`', inline=False)
+        embed.add_field(name="5. Now Playing", value=f'Je donne moult informations sur la chanson que je joue !\nUsage: `{self.bot.conf["prefix"]}nowplaying` ou `{self.bot.conf["prefix"]}np`', inline=False)
+        embed.add_field(name="6. Pause", value=f'Je pause et fait des pauses\nUsage: `{self.bot.conf["prefix"]}pause` ou `{self.bot.conf["prefix"]}ps`', inline=False)
+        embed.add_field(name="7. Resume", value=f'Je repart de plus belle !\nUsage: `{self.bot.conf["prefix"]}resume` ou `{self.bot.conf["prefix"]}continue`', inline=False)
+        # embed.add_field(name="7. Repeat", value=f'Votre musique va tourner en boucle !\nUsage: `{self.bot.conf["prefix"]}repeat` ou `{self.bot.conf["prefix"]}r`', inline=False)
         embed.add_field(name="8. Skip", value=f'Je passe a la chanson suivante !\nUsage: `{self.bot.conf["prefix"]}skip` ou `{self.bot.conf["prefix"]}s`', inline=False)
         embed.add_field(name="9. Queue", value=f'Je vous indique la file d\'attente !\nUsage: `{self.bot.conf["prefix"]}queue` ou `{self.bot.conf["prefix"]}q`', inline=False)
 

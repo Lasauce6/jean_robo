@@ -20,12 +20,13 @@ def get(iterable, **attrs):
             return elem
     return None
 
+
 class globalConfig:
     def __init__(self, file):
 
         global cfg
 
-        try :
+        try:
             with open(file, 'r') as jsonfile:
                 cfg = json.load(jsonfile)
         except Exception as e:
@@ -44,7 +45,6 @@ class globalConfig:
         if not cfg['config']['connection']['Twitch secret app id']:
             input('ERROR: Missing Twitch secret app id in config file!')
             sys.exit()
-
 
         if self.getYouTubersNr() == 0:
             input('ERROR: No YouTubers found in config file list or missing information!')
@@ -74,7 +74,6 @@ class globalConfig:
     def getStreamerDiscordChannelList(self, streamer):
         return streamer['Discord Channel']
 
-
     def getYoutuberDiscordChannelNr(self, youtuber):
         if not youtuber['Discord Channel']:
             return 0
@@ -84,7 +83,6 @@ class globalConfig:
         if not streamer['Discord Channel']:
             return 0
         return len(streamer['Discord Channel'])
-
 
     def getYouTubersNr(self):
         if not cfg['config']['YouTubers']:
@@ -110,7 +108,6 @@ class Config:
 
         with open(self.file, 'r', encoding=self.encoding) as fp:
             self._data = json.load(fp, object_pairs_hook=self.object_hook)
-
 
     def save(self):
         """Saves the config on disk."""
