@@ -121,21 +121,17 @@ async def update():
                 tprocesses[count].lock()
                 # print('{} IS LIVE, PUSHING INFO ON DISCORD !'.format(tthreads[count][0]))
                 sys.stdout.write('{} IS LIVE, PUSHING INFO ON DISCORD !'.format(tthreads[count][0]) + '\n')
-                for x in range(0, config.getDiscordChannelNr()):
-                    livestream = config.getStreamerDiscordChannelList(tthreads[count][3])[str(x)]['Twitch'].format(
-                        tthreads[count][0]) + '\n{}'.format(tprocesses[count].getStreamLink())
-                    embed = discord.Embed(title=tprocesses[count].getTitle(), colour=discord.Colour(0x9013fe),
-                                          url=tprocesses[count].getStreamLink())
+                for x in range(0, config.getStreamerDiscordChannelNr(tthreads[count][3])):
+                    livestream = config.getStreamerDiscordChannelList(tthreads[count][3])[str(x)]['Twitch'].format(tthreads[count][0]) + '\n{}'.format(tprocesses[count].getStreamLink())
+                    embed = discord.Embed(title=tprocesses[count].getTitle(), colour=discord.Colour(0x9013fe), url=tprocesses[count].getStreamLink())
 
                     embed.set_image(url=tprocesses[count].getThumbnail())
                     embed.set_thumbnail(url=tprocesses[count].getProfilePicture())
-                    embed.set_author(name=tprocesses[count].getStreamerName(),
-                                     icon_url=tprocesses[count].getProfilePicture())
+                    embed.set_author(name=tprocesses[count].getStreamerName(), icon_url=tprocesses[count].getProfilePicture())
 
                     embed.add_field(name='Game', value=tprocesses[count].getGame())
                     embed.add_field(name='Viewers', value=tprocesses[count].getViewers())
-                    channel = client.get_channel(
-                        config.getStreamerDiscordChannelList(tthreads[count][3])[str(x)]['channelID'])
+                    channel = client.get_channel(config.getStreamerDiscordChannelList(tthreads[count][3])[str(x)]['channelID'])
                     await channel.send(content=livestream, embed=embed)
             elif tprocesses[count].isStreaming() and tprocesses[count].lockStatus():
                 # print('Still Streaming !')
