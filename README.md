@@ -53,9 +53,9 @@ Checkout the [wiki](https://github.com/Lasauce6/jean_robo/wiki) for installation
     - Custom messages for user livestreams!
         -Support for custom messages per channel!
     - Easy json configuration file (conf/config.json)
-- Music :
+<s>- Music :
     - Plays music from Youtube, or others with youtube_dl ([List of supported sites](https://ytdl-org.github.io/youtube-dl/supportedsites.html))
-    - See the [site](https://jean-robo.sytes.net) for full commands 
+    - See the [site](https://jean-robo.sytes.net) for full commands </s>
 
 ### Credits
 - [Amethyst93 / Discord-YouTube-Notifier](https://github.com/Amethyst93/Discord-YouTube-Notifier)
