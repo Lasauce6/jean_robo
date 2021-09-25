@@ -19,7 +19,7 @@
         <img src="https://img.shields.io/badge/discord-py-blue.svg" alt="discord.py">
     </a>
     <a href="https://github.com/Lasauce6/jean_robo/blob/master/LICENSE">
-        <img src="https://img.shields.io/badge/license-MIT-green">
+        <img src="https://img.shields.io/badge/license-GNU-green">
     </a>
 </p>
 
