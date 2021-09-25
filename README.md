@@ -52,7 +52,7 @@ Checkout the [wiki](https://github.com/Lasauce6/jean_robo/wiki) for installation
     - Multi discord channel support, so you can push the update feed in more than one server or channel et the time!
     - Custom messages for user livestreams!
         -Support for custom messages per channel!
-    - Easy json configuration file (conf/config.json)
+    - Easy json configuration file (conf/config.json)<br/>
 <s>- Music :
     - Plays music from Youtube, or others with youtube_dl ([List of supported sites](https://ytdl-org.github.io/youtube-dl/supportedsites.html))
     - See the [site](https://jean-robo.sytes.net) for full commands </s>
